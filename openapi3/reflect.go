@@ -61,7 +61,7 @@ func joinErrors(errs ...error) error {
 // SpecEns ensures returned Spec is not nil.
 func (r *Reflector) SpecEns() *Spec {
 	if r.Spec == nil {
-		r.Spec = &Spec{Openapi: "3.0.3"}
+		r.Spec = &Spec{Openapi: "3.1.0"}
 	}
 
 	return r.Spec

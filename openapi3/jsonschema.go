@@ -84,14 +84,14 @@ func (s *SchemaOrRef) toJSONSchema(ctx toJSONSchemaContext) jsonschema.SchemaOrB
 	}
 
 	jso.MultipleOf = ss.MultipleOf
-	if ss.ExclusiveMaximum != nil && *ss.ExclusiveMaximum {
-		jso.ExclusiveMaximum = ss.Maximum
+	if ss.ExclusiveMaximum != nil {
+		jso.ExclusiveMaximum = ss.ExclusiveMaximum
 	} else {
 		jso.Maximum = ss.Maximum
 	}
 
-	if ss.ExclusiveMinimum != nil && *ss.ExclusiveMinimum {
-		jso.ExclusiveMinimum = ss.Minimum
+	if ss.ExclusiveMinimum != nil {
+		jso.ExclusiveMinimum = ss.ExclusiveMinimum
 	} else {
 		jso.Minimum = ss.Minimum
 	}
@@ -261,15 +261,15 @@ func (s *SchemaOrRef) FromJSONSchema(schema jsonschema.SchemaOrBool) {
 	}
 
 	if js.ExclusiveMaximum != nil {
-		os.WithExclusiveMaximum(true)
-		os.Maximum = js.Maximum
+		os.WithExclusiveMaximum(*js.ExclusiveMaximum)
+		os.ExclusiveMaximum = js.ExclusiveMaximum
 	} else if js.Maximum != nil {
 		os.Maximum = js.Maximum
 	}
 
 	if js.ExclusiveMinimum != nil {
-		os.WithExclusiveMinimum(true)
-		os.Minimum = js.Minimum
+		os.WithExclusiveMinimum(*js.ExclusiveMinimum)
+		os.ExclusiveMinimum = js.ExclusiveMinimum
 	} else if js.Minimum != nil {
 		os.Minimum = js.Minimum
 	}

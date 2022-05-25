@@ -16,7 +16,7 @@ import (
 //
 // Validation schema for OpenAPI Specification 3.0.X.
 type Spec struct {
-	// Value must match pattern: `^3\.0\.\d(-.+)?$`.
+	// Value must match pattern: `^3\.1\.\d(-.+)?$`.
 	// Required.
 	Openapi       string                 `json:"openapi"`
 	Info          Info                   `json:"info"` // Required.
@@ -1668,9 +1668,9 @@ type Schema struct {
 	Title                *string                     `json:"title,omitempty"`
 	MultipleOf           *float64                    `json:"multipleOf,omitempty"`
 	Maximum              *float64                    `json:"maximum,omitempty"`
-	ExclusiveMaximum     *bool                       `json:"exclusiveMaximum,omitempty"`
+	ExclusiveMaximum     *float64                    `json:"exclusiveMaximum,omitempty"`
 	Minimum              *float64                    `json:"minimum,omitempty"`
-	ExclusiveMinimum     *bool                       `json:"exclusiveMinimum,omitempty"`
+	ExclusiveMinimum     *float64                    `json:"exclusiveMinimum,omitempty"`
 	MaxLength            *int64                      `json:"maxLength,omitempty"`
 	MinLength            *int64                      `json:"minLength,omitempty"`
 	Pattern              *string                     `json:"pattern,omitempty"` // Format: regex.
@@ -1723,7 +1723,7 @@ func (s *Schema) WithMaximum(val float64) *Schema {
 }
 
 // WithExclusiveMaximum sets ExclusiveMaximum value.
-func (s *Schema) WithExclusiveMaximum(val bool) *Schema {
+func (s *Schema) WithExclusiveMaximum(val float64) *Schema {
 	s.ExclusiveMaximum = &val
 	return s
 }
@@ -1735,7 +1735,7 @@ func (s *Schema) WithMinimum(val float64) *Schema {
 }
 
 // WithExclusiveMinimum sets ExclusiveMinimum value.
-func (s *Schema) WithExclusiveMinimum(val bool) *Schema {
+func (s *Schema) WithExclusiveMinimum(val float64) *Schema {
 	s.ExclusiveMinimum = &val
 	return s
 }
@@ -3259,8 +3259,10 @@ func (h *Header) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constHeader is unconditionally added to JSON.
-var constHeader = json.RawMessage(`{"style":"simple"}`)
+var (
+	// constHeader is unconditionally added to JSON.
+	constHeader = json.RawMessage(`{"style":"simple"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (h Header) MarshalJSON() ([]byte, error) {
@@ -3560,8 +3562,10 @@ func (p *PathParameter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constPathParameter is unconditionally added to JSON.
-var constPathParameter = json.RawMessage(`{"in":"path","required":true}`)
+var (
+	// constPathParameter is unconditionally added to JSON.
+	constPathParameter = json.RawMessage(`{"in":"path","required":true}`)
+)
 
 // MarshalJSON encodes JSON.
 func (p PathParameter) MarshalJSON() ([]byte, error) {
@@ -3614,8 +3618,10 @@ func (q *QueryParameter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constQueryParameter is unconditionally added to JSON.
-var constQueryParameter = json.RawMessage(`{"in":"query"}`)
+var (
+	// constQueryParameter is unconditionally added to JSON.
+	constQueryParameter = json.RawMessage(`{"in":"query"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (q QueryParameter) MarshalJSON() ([]byte, error) {
@@ -3627,7 +3633,8 @@ func (q QueryParameter) MarshalJSON() ([]byte, error) {
 // Header Parameter.
 //
 // Parameter in header.
-type HeaderParameter struct{}
+type HeaderParameter struct {
+}
 
 // UnmarshalJSON decodes JSON.
 func (h *HeaderParameter) UnmarshalJSON(data []byte) error {
@@ -3655,8 +3662,10 @@ func (h *HeaderParameter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constHeaderParameter is unconditionally added to JSON.
-var constHeaderParameter = json.RawMessage(`{"in":"header","style":"simple"}`)
+var (
+	// constHeaderParameter is unconditionally added to JSON.
+	constHeaderParameter = json.RawMessage(`{"in":"header","style":"simple"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (h HeaderParameter) MarshalJSON() ([]byte, error) {
@@ -3668,7 +3677,8 @@ func (h HeaderParameter) MarshalJSON() ([]byte, error) {
 // Cookie Parameter.
 //
 // Parameter in cookie.
-type CookieParameter struct{}
+type CookieParameter struct {
+}
 
 // UnmarshalJSON decodes JSON.
 func (c *CookieParameter) UnmarshalJSON(data []byte) error {
@@ -3696,8 +3706,10 @@ func (c *CookieParameter) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constCookieParameter is unconditionally added to JSON.
-var constCookieParameter = json.RawMessage(`{"in":"cookie","style":"form"}`)
+var (
+	// constCookieParameter is unconditionally added to JSON.
+	constCookieParameter = json.RawMessage(`{"in":"cookie","style":"form"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (c CookieParameter) MarshalJSON() ([]byte, error) {
@@ -6546,8 +6558,10 @@ func (a *APIKeySecurityScheme) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constAPIKeySecurityScheme is unconditionally added to JSON.
-var constAPIKeySecurityScheme = json.RawMessage(`{"type":"apiKey"}`)
+var (
+	// constAPIKeySecurityScheme is unconditionally added to JSON.
+	constAPIKeySecurityScheme = json.RawMessage(`{"type":"apiKey"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (a APIKeySecurityScheme) MarshalJSON() ([]byte, error) {
@@ -6740,8 +6754,10 @@ func (h *HTTPSecurityScheme) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constHTTPSecurityScheme is unconditionally added to JSON.
-var constHTTPSecurityScheme = json.RawMessage(`{"type":"http"}`)
+var (
+	// constHTTPSecurityScheme is unconditionally added to JSON.
+	constHTTPSecurityScheme = json.RawMessage(`{"type":"http"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (h HTTPSecurityScheme) MarshalJSON() ([]byte, error) {
@@ -6753,7 +6769,8 @@ func (h HTTPSecurityScheme) MarshalJSON() ([]byte, error) {
 // Bearer.
 //
 // Bearer.
-type Bearer struct{}
+type Bearer struct {
+}
 
 // UnmarshalJSON decodes JSON.
 func (b *Bearer) UnmarshalJSON(data []byte) error {
@@ -6775,8 +6792,10 @@ func (b *Bearer) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constBearer is unconditionally added to JSON.
-var constBearer = json.RawMessage(`{"scheme":"bearer"}`)
+var (
+	// constBearer is unconditionally added to JSON.
+	constBearer = json.RawMessage(`{"scheme":"bearer"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (b Bearer) MarshalJSON() ([]byte, error) {
@@ -6921,8 +6940,10 @@ func (o *OAuth2SecurityScheme) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constOAuth2SecurityScheme is unconditionally added to JSON.
-var constOAuth2SecurityScheme = json.RawMessage(`{"type":"oauth2"}`)
+var (
+	// constOAuth2SecurityScheme is unconditionally added to JSON.
+	constOAuth2SecurityScheme = json.RawMessage(`{"type":"oauth2"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (o OAuth2SecurityScheme) MarshalJSON() ([]byte, error) {
@@ -7792,8 +7813,10 @@ func (o *OpenIDConnectSecurityScheme) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-// constOpenIDConnectSecurityScheme is unconditionally added to JSON.
-var constOpenIDConnectSecurityScheme = json.RawMessage(`{"type":"openIdConnect"}`)
+var (
+	// constOpenIDConnectSecurityScheme is unconditionally added to JSON.
+	constOpenIDConnectSecurityScheme = json.RawMessage(`{"type":"openIdConnect"}`)
+)
 
 // MarshalJSON encodes JSON.
 func (o OpenIDConnectSecurityScheme) MarshalJSON() ([]byte, error) {

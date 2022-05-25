@@ -86,7 +86,7 @@ type GetReq struct {
 }
 
 const (
-	apiName    = "SampleAPI"
+	apiName    = "Order Management System"
 	apiVersion = "1.2.3"
 )
 
@@ -279,11 +279,11 @@ func TestReflector_SetRequest_pathParamAndBody(t *testing.T) {
 	s := reflector.SpecEns()
 	s.Info.Title = apiName
 	s.Info.Version = apiVersion
-	assert.NoError(t, s.AddOperation(http.MethodPost, "/somewhere/{id}", op))
+	assert.NoError(t, s.AddOperation(http.MethodGet, "/somewhere/{id}", op))
 
 	b, err := assertjson.MarshalIndentCompact(s, "", " ", 100)
 	assert.NoError(t, err)
-
+	ioutil.WriteFile("3 dot 1.json", b, 0644)
 	expected := []byte(`{
 	 "openapi":"3.0.3","info":{"title":"SampleAPI","version":"1.2.3"},
 	 "paths":{
